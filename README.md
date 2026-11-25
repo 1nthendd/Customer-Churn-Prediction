@@ -28,34 +28,7 @@ The project uses the **Telco Customer Churn** dataset:
 - `MonthlyCharges`, `TotalCharges` — billing information
 - `Churn` — target variable
 
-## Project Workflow
-
-### 1. Data quality checks
-
-- Inspected the dataset structure and data types
-- Checked for duplicate records and missing values
-- Converted `TotalCharges` to numeric format
-- Replaced missing `TotalCharges` values with `0`
-
-### 2. Exploratory data analysis
-
-The notebook explores:
-
-- Contract type and churn
-- Customer tenure
-- Monthly and total charges
-- Churn rates across categorical features
-- Correlations between numerical features
-
-### 3. Feature preparation
-
-- Removed `customerID` and `Churn` from the feature matrix
-- Used an 80/20 stratified train-test split
-- Applied `StandardScaler` to numerical features
-- Applied `OneHotEncoder` to categorical features
-- Used a scikit-learn `ColumnTransformer` and `Pipeline` to keep preprocessing reproducible
-
-### 4. Model training
+### 1. Model training
 
 The notebook compares:
 
@@ -65,7 +38,7 @@ The notebook compares:
 
 Model evaluation uses accuracy, precision, recall, F1 score, ROC-AUC, and confusion matrices.
 
-### 5. Hyperparameter tuning
+### 2. Hyperparameter tuning
 
 CatBoost is tuned with a small grid over:
 
@@ -75,10 +48,9 @@ CatBoost is tuned with a small grid over:
 
 Each configuration is evaluated by cross-validation using the same scoring metrics.
 
-### 6. Classification threshold
+### 3. Classification threshold
 
-Instead of relying only on the default probability threshold of `0.50`, the notebook calculates out-of-fold probabilities and evaluates thresholds from `0.10` to `0.70`.
-
+The notebook calculates out-of-fold probabilities and evaluates thresholds from `0.10` to `0.70`.
 The final CatBoost predictions use a threshold of **0.37**, with the goal of improving recall for the churn class while maintaining precision and F1 score.
 
 ## Baseline Results
@@ -139,12 +111,6 @@ jupyter notebook
 
 Update the CSV path in the first code cell if running outside Kaggle.
 
-## Possible Improvements
-
-- Compare additional models such as XGBoost or LightGBM
-- Perform broader hyperparameter optimization
-- Test class-balancing techniques such as SMOTE or class-weight tuning
-- Evaluate the final threshold with an independent validation process
 - Use a retention-focused cost matrix for precision-recall trade-offs
 - Add saved model and prediction artifacts
 - Deploy the model as an API or interactive dashboard
